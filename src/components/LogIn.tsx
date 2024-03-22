@@ -1,72 +1,72 @@
-import { SyntheticEvent, useState } from "react"
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-
+import { SyntheticEvent, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ fetchUser }: { fetchUser: Function }) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    })
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const [errorMessage, setErrorMessage] = useState("")
+  function handleChange(e: any) {
+    const fieldName = e.target.name;
+    const newFormData = structuredClone(formData);
+    newFormData[fieldName as keyof typeof formData] = e.target.value;
+    setFormData(newFormData);
+    setErrorMessage("");
+  }
 
-    function handleChange(e: any) {
-        const fieldName = e.target.name
-        const newFormData = structuredClone(formData)
-        newFormData[fieldName as keyof typeof formData] = e.target.value
-        setFormData(newFormData)
-        setErrorMessage("")
+  async function handleSubmit(e: SyntheticEvent) {
+    try {
+      e.preventDefault();
+      const resp = await axios.post("/api/login", formData);
+      localStorage.setItem("token", resp.data.token);
+      console.log(resp.data);
+      fetchUser();
+      navigate("/");
+    } catch (e: any) {
+      setErrorMessage(e.response.data.message);
     }
+  }
+  console.log(formData);
 
-    async function handleSubmit(e: SyntheticEvent) {
-        try {
-            e.preventDefault()
-            const resp = await axios.post('/api/login', formData)
-            localStorage.setItem('token', resp.data.token)
-            console.log(resp.data)
-            fetchUser()
-            navigate('/')
-        } catch (e: any) {
-            setErrorMessage(e.response.data.message)
-        }
-
-    }
-    console.log(formData)
-
-    return <div>
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email</label>
-                    <div>
-                        <input
-
-                            type="text"
-                            name={'email'}
-                            onChange={handleChange}
-                            value={formData.email}
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Password</label>
-                    <div>
-                        <input
-
-                            type="password"
-                            name={'password'}
-                            onChange={handleChange}
-                            value={formData.password}
-                        />
-                    </div>
-                    {errorMessage && <small>{errorMessage}</small>}
-                </div>
-                <button>Submit</button>
-            </form>
-        </div>
+  return (
+    <div>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Email</label>
+            <div>
+              <input
+                type="text"
+                name={"email"}
+                onChange={handleChange}
+                value={formData.email}
+              />
+            </div>
+          </div>
+          <div>
+            <label>Password</label>
+            <div>
+              <input
+                type="password"
+                name={"password"}
+                onChange={handleChange}
+                value={formData.password}
+              />
+            </div>
+            {errorMessage && <small>{errorMessage}</small>}
+          </div>
+          <button>Submit</button>
+      <div className="h-dvh">
+        <h1 className="items=center text-center ">Welcome to the Login Page!</h1>
+      </div>
+        </form>
+      </div>
     </div>
+  );
 }

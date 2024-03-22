@@ -31,72 +31,74 @@ export default function CreateTip() {
     }
 
 
-    return <div>
+    return (
+      <div>
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name</label>
-                    <div>
-                        <input
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Name</label>
+              <div>
+                <input
+                  type="text"
+                  name={"name"}
+                  onChange={handleChange}
+                  value={formData.name}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Cohort</label>
+              <div>
+                <input
+                  type="text"
+                  name={"cohort"}
+                  onChange={handleChange}
+                  value={formData.cohort}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Emoji</label>
+              <div>
+                <input
+                  type="text"
+                  name={"emoji"}
+                  onChange={handleChange}
+                  value={formData.emoji}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Heading</label>
+              <div>
+                <input
+                  type="text"
+                  name={"heading"}
+                  onChange={handleChange}
+                  value={formData.heading}
+                />
+              </div>
+            </div>
+            <div>
+              <label>Advice</label>
+              <div>
+                <input
+                  type="text"
+                  name={"advice"}
+                  onChange={handleChange}
+                  value={formData.advice}
+                />
+              </div>
+            </div>
 
-                            type="text"
-                            name={'name'}
-                            onChange={handleChange}
-                            value={formData.name}
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Cohort</label>
-                    <div>
-                        <input
-
-                            type="text"
-                            name={'cohort'}
-                            onChange={handleChange}
-                            value={formData.cohort}
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Emoji</label>
-                    <div>
-                        <input
-
-                            type="text"
-                            name={'emoji'}
-                            onChange={handleChange}
-                            value={formData.emoji}
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Heading</label>
-                    <div>
-                        <input
-
-                            type="text"
-                            name={'heading'}
-                            onChange={handleChange}
-                            value={formData.heading}
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label>Advice</label>
-                    <div>
-                        <input
-
-                            type="text"
-                            name={'advice'}
-                            onChange={handleChange}
-                            value={formData.advice}
-                        />
-                    </div>
-                </div>
-
-                <button>Submit</button>
-            </form>
+            <button>Submit</button>
+          </form>
+          <div className="h-dvh">
+            <h1 className="items=center text-center ">
+              Welcome to the Create-Advice Page!
+            </h1>
+          </div>
         </div>
-    </div>
+      </div>
+    );
 }

@@ -25,6 +25,11 @@ function TipsList() {
     <section>
       <div>
         <div>
+          <div className="h-dvh">
+            <h1 className="items=center text-center ">
+              Welcome to the Advice Page!
+            </h1>
+          </div>
           {tips?.map((tip) => {
             return <Tip key={tip._id} {...tip} />;
           })}

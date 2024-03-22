@@ -56,7 +56,9 @@ function Navbar() {
           </div>
           <div className="flex items-center gap-6">
             <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
+              <Link to="/login">
               Login
+              </Link>
             </button>
             <ion-icon
               onClick={toggleMenu}
