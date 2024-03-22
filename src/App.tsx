@@ -1,10 +1,15 @@
 import "./styles/index.css";
+import Navbar from "./components/Navbar"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <h2 className="text-7xl font-bold underline">Hello world!</h2>;
-    </>
+    <Router>
+    <Navbar />
+<Routes>
+
+</Routes>
+    </Router>
   );
 }
 
