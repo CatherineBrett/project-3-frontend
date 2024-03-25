@@ -130,7 +130,7 @@ export default function CreateTip() {
                 id={"tip"}
                 onChange={handleChange}
                 value={formData.tip}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
             </div>
           </div>

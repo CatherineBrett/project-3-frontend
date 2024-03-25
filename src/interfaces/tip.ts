@@ -2,7 +2,7 @@ export interface ITip {
   _id: string;
   name: string;
   cohort: string;
-  emoji: string;
+  emoji: "study-tips" | "staying-motivated" | "self-care" | "comic-relief" | "misc";
   heading: string;
   tip: string;
   user: { username: string };
