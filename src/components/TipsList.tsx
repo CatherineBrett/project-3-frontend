@@ -1,6 +1,6 @@
 import React from "react";
 import { ITip } from "../interfaces/tip";
-import Card from "./ShowTip";
+import Card from "./Tip";
 
 type Tips = null | Array<ITip>;
 

@@ -19,7 +19,7 @@ function Footer() {
               Advice
             </Link>
             <Link
-              to="/create-advice"
+              to="/give-advice"
               className="text-gray-700 hover:text-gray-900 text-sm font-semibold leading-relaxed"
             >
               Create Advice
