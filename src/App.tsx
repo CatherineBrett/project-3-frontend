@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import TipsList from "./components/TipsList";
 import CreateTip from "./components/CreateTip";
 import Login from "./components/LogIn";
+import SignUp from "./components/SignUp";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -34,6 +35,7 @@ useEffect(() => {
         <Route path="/advice" element={<TipsList />} />
         <Route path="/create-advice" element={<CreateTip />} />
         <Route path="/login" element={<Login fetchUser={fetchUser} />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
       <Footer />
     </Router>

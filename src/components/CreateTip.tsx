@@ -10,7 +10,7 @@ export default function CreateTip() {
         cohort: "",
         emoji: "",
         heading: "",
-        advice: "",
+        tip: "",
     })
 
     function handleChange(e: any) {
@@ -27,7 +27,7 @@ export default function CreateTip() {
             headers: { Authorization: `Bearer ${token}` }
         })
         console.log(resp.data)
-        navigate('/list') // add advice list page location here
+        navigate('/advice') // add advice list page location here
     }
 
 
@@ -84,9 +84,9 @@ export default function CreateTip() {
               <div>
                 <input
                   type="text"
-                  name={"advice"}
+                  name={"tip"}
                   onChange={handleChange}
-                  value={formData.advice}
+                  value={formData.tip}
                 />
               </div>
             </div>
