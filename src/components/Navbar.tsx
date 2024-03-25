@@ -33,9 +33,8 @@ function Navbar() {
             />
           </div>
           <div
-            className={`md:static ${
-              isMenuOpen ? "top-0" : "top-[-100%]"
-            } transition-top duration-300 ease-in-out absolute bg-white md:min-h-fit min-h-[60vh] left-0 md:w-auto w-full flex items-center px-5`}
+            className={`md:static ${isMenuOpen ? "top-0" : "top-[-100%]"
+              } transition-top duration-300 ease-in-out absolute bg-white md:min-h-fit min-h-[60vh] left-0 md:w-auto w-full flex items-center px-5`}
           >
             <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
               <li>
