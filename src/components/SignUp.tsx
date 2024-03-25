@@ -42,11 +42,12 @@ export default function Signup() {
     }
 
 
-    return <div>
-        <div>
-            <form onSubmit={handleSubmit}>
+    return <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="bg-white shadow-md rounded px-8 py-6 w-96">
+            <h2 className="text-xl font-bold mb-4 text-center text-red-500">Sign Up</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label>Username</label>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
                     <div className="control">
                         <input
 
@@ -54,12 +55,13 @@ export default function Signup() {
                             name={'username'}
                             onChange={handleChange}
                             value={formData.username}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                         />
-                        {errorData.username && <small>{errorData.username}</small>}
+                        {errorData.username && <small className="text-red-500">{errorData.username}</small>}
                     </div>
                 </div>
                 <div>
-                    <label>Email</label>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                     <div>
                         <input
 
@@ -67,12 +69,13 @@ export default function Signup() {
                             name={'email'}
                             onChange={handleChange}
                             value={formData.email}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                         />
-                        {errorData.email && <small>{errorData.email}</small>}
+                        {errorData.email && <small className="text-red-500">{errorData.email}</small>}
                     </div>
                 </div>
                 <div>
-                    <label>Password</label>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                     <div>
                         <input
 
@@ -80,12 +83,13 @@ export default function Signup() {
                             name={'password'}
                             onChange={handleChange}
                             value={formData.password}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                         />
-                        {errorData.password && <small>{errorData.password}</small>}
+                        {errorData.password && <small className="text-red-500">{errorData.password}</small>}
                     </div>
                 </div>
                 <div>
-                    <label>Confirm password</label>
+                    <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">Confirm password</label>
                     <div>
                         <input
 
@@ -93,12 +97,13 @@ export default function Signup() {
                             name={'passwordConfirmation'}
                             onChange={handleChange}
                             value={formData.passwordConfirmation}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                         />
-                        {errorData.passwordConfirmation && <small>{errorData.passwordConfirmation}</small>}
+                        {errorData.passwordConfirmation && <small className="text-red-500">{errorData.passwordConfirmation}</small>}
                     </div>
                 </div>
                 <div>
-                    <label>Bio</label>
+                    <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Bio</label>
                     <div>
                         <input
 
@@ -106,11 +111,14 @@ export default function Signup() {
                             name={'bio'}
                             onChange={handleChange}
                             value={formData.bio}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
                         />
                         {errorData.bio && <small>{errorData.bio}</small>}
                     </div>
                 </div>
-                <button>Submit</button>
+                <div className="flex justify-center">
+                    <button className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 focus:outline-none focus:ring focus:border-red-300">Submit</button>
+                </div>
             </form>
         </div>
     </div>
