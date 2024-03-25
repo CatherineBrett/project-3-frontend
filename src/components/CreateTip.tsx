@@ -30,7 +30,7 @@ export default function CreateTip() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-md rounded px-8 py-6 w-96">
         <h2 className="text-xl font-bold mb-4 text-center text-red-500">
           Give Advice

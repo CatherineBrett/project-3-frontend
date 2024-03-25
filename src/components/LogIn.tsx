@@ -35,44 +35,67 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
   console.log(formData);
 
   return (
-    <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Email</label>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 pd-6">
+      <div className="flex flex-col items-center">
+        <div className="bg-white shadow-md rounded px-8 py-6 w-96">
+          <h2 className="text-xl font-bold mb-4 text-center text-red-500">
+            Login
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <input
-                type="text"
-                name={"email"}
-                onChange={handleChange}
-                value={formData.email}
-              />
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name="email"
+                  onChange={handleChange}
+                  value={formData.email}
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                />
+              </div>
             </div>
-          </div>
-          <div>
-            <label>Password</label>
             <div>
-              <input
-                type="password"
-                name={"password"}
-                onChange={handleChange}
-                value={formData.password}
-              />
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div>
+                <input
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  value={formData.password}
+                  className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                />
+                {errorMessage && (
+                  <small className="text-red-500">{errorMessage}</small>
+                )}
+              </div>
             </div>
-            {errorMessage && <small>{errorMessage}</small>}
-          </div>
-          <button>Submit</button>
-          <div className="h-dvh">
-            <h1 className="items=center text-center ">Welcome to the Login Page!</h1>
-          </div>
-        </form>
-        <div><div>Don't have an account?
+            <div className="flex justify-center">
+              <button className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 focus:outline-none focus:ring focus:border-red-300">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-          <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
-            <Link to="/signup">
-              Sign up!
+        <div className="bg-white shadow-md rounded px-8 py-4 w-96 mt-4">
+          <p className="text-center text-sm">
+            <span className="text-gray-700">Don't have an account?</span>{" "}
+            <Link
+              to="/signup"
+              className="text-red-500 hover:text-red-400 font-bold"
+            >
+              Sign up
             </Link>
-          </button>
+          </p>
         </div>
       </div>
     </div>
