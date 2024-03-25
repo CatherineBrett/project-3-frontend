@@ -49,7 +49,7 @@ function Navbar() {
               </li>
               <li>
                 <Link to="/create-advice" className="hover:text-red-500">
-                  Create Advice
+                  Give Advice
                 </Link>
               </li>
             </ul>
