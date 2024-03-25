@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login({ fetchUser }: { fetchUser: Function }) {
   const navigate = useNavigate();
@@ -62,10 +62,18 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
             {errorMessage && <small>{errorMessage}</small>}
           </div>
           <button>Submit</button>
-      <div className="h-dvh">
-        <h1 className="items=center text-center ">Welcome to the Login Page!</h1>
-      </div>
+          <div className="h-dvh">
+            <h1 className="items=center text-center ">Welcome to the Login Page!</h1>
+          </div>
         </form>
+        <div><div>Don't have an account?
+        </div>
+          <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
+            <Link to="/signup">
+              Sign up!
+            </Link>
+          </button>
+        </div>
       </div>
     </div>
   );

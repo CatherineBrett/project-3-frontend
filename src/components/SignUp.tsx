@@ -97,6 +97,19 @@ export default function Signup() {
                         {errorData.passwordConfirmation && <small>{errorData.passwordConfirmation}</small>}
                     </div>
                 </div>
+                <div>
+                    <label>Bio</label>
+                    <div>
+                        <input
+
+                            type="text"
+                            name={'bio'}
+                            onChange={handleChange}
+                            value={formData.bio}
+                        />
+                        {errorData.bio && <small>{errorData.bio}</small>}
+                    </div>
+                </div>
                 <button>Submit</button>
             </form>
         </div>
