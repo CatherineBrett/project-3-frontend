@@ -29,7 +29,11 @@ function TipsList() {
 
   function filterResults() {
     return tips?.filter(searchResult => {
-      return searchResult.name.toLowerCase().includes(search.toLowerCase())
+      return searchResult.name.toLowerCase().includes(search.toLowerCase()) ||
+        searchResult.cohort.toLowerCase().includes(search.toLowerCase()) ||
+        searchResult.emoji.toLowerCase().includes(search.toLowerCase()) ||
+        searchResult.heading.toLowerCase().includes(search.toLowerCase()) ||
+        searchResult.tip.toLowerCase().includes(search.toLowerCase())
     })
   }
 
