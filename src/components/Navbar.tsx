@@ -14,46 +14,41 @@ declare global {
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  console.log("Menu state:", isMenuOpen);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    console.log("Menu state after toggle:", !isMenuOpen);
   };
 
   return (
     <>
       <header className="bg-white shadow-md py-2">
         <nav className="flex justify-between items-center w-[92%] mx-auto">
-          <div>
+          <div className="flex items-center">
             <img
-              className="w-16 mt-2"
+              className="w-16 mt-2 mr-4"
               src="../src/assets/bbtransparentbg.png"
               alt="BB Logo"
             />
-          </div>
-          <div
-            className={`md:static ${
-              isMenuOpen ? "top-0" : "top-[-100%]"
-            } transition-top duration-300 ease-in-out absolute bg-white md:min-h-fit min-h-[60vh] left-0 md:w-auto w-full flex items-center px-5`}
-          >
-            <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
-              <li>
-                <Link to="/" className="hover:text-red-500">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/advice" className="hover:text-red-500">
-                  Advice
-                </Link>
-              </li>
-              <li>
-                <Link to="/create-advice" className="hover:text-red-500">
-                  Give Advice
-                </Link>
-              </li>
-            </ul>
+            <div
+              className={`${isMenuOpen ? "block" : "hidden"} md:block transition duration-300 ease-in-out`}
+            >
+              <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
+                <li>
+                  <Link to="/" className="hover:text-red-500">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/advice" className="hover:text-red-500">
+                    Advice
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/create-advice" className="hover:text-red-500">
+                    Give Advice
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="flex items-center gap-6">
             <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
