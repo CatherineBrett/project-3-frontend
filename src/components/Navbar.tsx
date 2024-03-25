@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { closeOutline, menuOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useState } from "react";
 
@@ -56,15 +57,13 @@ function Navbar() {
           </div>
           <div className="flex items-center gap-6">
             <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
-              <Link to="/login">
-              Login
-              </Link>
+              <Link to="/login">Login</Link>
             </button>
-            <ion-icon
+            <IonIcon
               onClick={toggleMenu}
-              name={isMenuOpen ? "close" : "menu"}
-              class="text-3xl cursor-pointer md:hidden"
-            ></ion-icon>
+              icon={isMenuOpen ? closeOutline : menuOutline}
+              className="text-3xl cursor-pointer md:hidden"
+            />
           </div>
         </nav>
       </header>
