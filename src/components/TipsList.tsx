@@ -1,6 +1,6 @@
 import React from "react";
-import Tip from "./Tip";
 import { ITip } from "../interfaces/tip";
+import Card from "./ShowTip";
 
 type Tips = null | Array<ITip>;
 
@@ -19,19 +19,13 @@ function TipsList() {
   console.log("Here are all the tips we have fetched:");
   console.log(tips);
 
-  
   // TODO: Add Tailwind/CSS to this
   return (
     <section>
       <div>
-        <div>
-          <div className="h-dvh">
-            <h1 className="items=center text-center ">
-              Welcome to the Advice Page!
-            </h1>
-          </div>
+        <div className="flex">
           {tips?.map((tip) => {
-            return <Tip key={tip._id} {...tip} />;
+            return <Card key={tip._id} {...tip} />;
           })}
         </div>
       </div>
@@ -39,4 +33,4 @@ function TipsList() {
   );
 }
 
-export default TipsList
+export default TipsList;
