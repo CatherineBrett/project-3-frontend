@@ -20,7 +20,7 @@ export default function Card({ _id, name, cohort, emoji, heading, tip }: ITip) {
           <p className="text-gray-600 mt-1 text-center">{tip}</p>
           <div className="mt-4 pt-2 border-t">
             <p className="text-sm text-gray-700 text-center">
-              Advice by:{" "}
+              Advice from:{" "}
               <span className="font-medium text-gray-900">{name}</span>
             </p>
             <p className="text-sm text-gray-700 text-center">

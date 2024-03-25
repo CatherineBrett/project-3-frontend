@@ -87,7 +87,7 @@ export default function CreateTip() {
                 name="emoji"
                 id="emoji"
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   - Pick a category -
                 </option>
                 <option value="study-tips">Study tips 📚</option>
@@ -124,10 +124,10 @@ export default function CreateTip() {
               Your Advice
             </label>
             <div>
-              <input
-                type="text"
+              <textarea
                 name={"tip"}
                 id={"tip"}
+                maxLength={200}
                 onChange={handleChange}
                 value={formData.tip}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"

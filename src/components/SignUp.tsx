@@ -105,9 +105,8 @@ export default function Signup() {
                 <div>
                     <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Bio</label>
                     <div>
-                        <input
-
-                            type="text"
+                        <textarea
+                            maxLength={500}
                             name={'bio'}
                             onChange={handleChange}
                             value={formData.bio}
