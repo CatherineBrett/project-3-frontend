@@ -26,7 +26,7 @@ export default function CreateTip() {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(resp.data);
-    navigate("/advice"); // add advice list page location here
+    navigate("/advice"); 
   }
 
   return (

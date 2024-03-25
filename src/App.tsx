@@ -1,43 +1,49 @@
-import "./styles/index.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import TipsList from "./components/TipsList";
 import CreateTip from "./components/CreateTip";
 import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import ShowTip from "./components/ShowTip";
+import "./styles/index.css";
 
 function App() {
+  const [user, setUser] = useState(null);
 
-const [user, setUser] = useState(null);
+  async function fetchUser() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const resp = await axios.get("/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUser(resp.data);
+    }
+  }
 
-async function fetchUser() {
-  const token = localStorage.getItem("token");
-  const resp = await axios.get("/api/user", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  setUser(resp.data);
-}
-
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (token) fetchUser();
-}, []);
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/advice" element={<TipsList />} />
-        <Route path="/create-advice" element={<CreateTip />} />
-        <Route path="/login" element={<Login fetchUser={fetchUser} />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/advice" element={<TipsList />} />
+            <Route path="/advice/:tipId" element={<ShowTip />} />
+            <Route path="/give-advice" element={<CreateTip />} />
+            <Route path="/login" element={<Login fetchUser={fetchUser} />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   );
 }

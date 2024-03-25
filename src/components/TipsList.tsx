@@ -47,8 +47,9 @@ function TipsList() {
   return (
     <section>
       <div className="container mx-auto">
-        <div className="flex justify-center mt-8">
-          <input id="searchBar"
+        <div className="flex justify-center mt-8 ">
+          <input
+            id="searchBar"
             className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-96"
             placeholder="Search for Advice"
             onChange={handleChange}
@@ -56,10 +57,14 @@ function TipsList() {
           />
         </div>
       </div>
-      <div>
-        <div className="flex">
+      <div className="">
+        <div className="flex flex-wrap -mx-2 p-4">
           {filterResults()?.map((tip) => {
-            return <Card key={tip._id} {...tip} />;
+            return (
+              <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-2">
+                <Card key={tip._id} {...tip} />
+              </div>
+            );
           })}
         </div>
       </div>

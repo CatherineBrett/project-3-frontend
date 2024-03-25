@@ -21,7 +21,7 @@ function Navbar() {
   return (
     <>
       <header className="bg-white shadow-md py-2">
-        <nav className="flex justify-between items-center w-[92%] mx-auto">
+        <nav className="flex justify-between items-center w-[92%] mx-auto pb-8">
           <div className="flex items-center">
             <img
               className="w-16 mt-2 mr-4"
@@ -29,7 +29,9 @@ function Navbar() {
               alt="BB Logo"
             />
             <div
-              className={`${isMenuOpen ? "block" : "hidden"} md:block transition duration-300 ease-in-out`}
+              className={`${
+                isMenuOpen ? "block" : "hidden"
+              } md:block transition duration-300 ease-in-out`}
             >
               <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
                 <li>
@@ -43,7 +45,7 @@ function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/create-advice" className="hover:text-red-500">
+                  <Link to="/give-advice" className="hover:text-red-500">
                     Give Advice
                   </Link>
                 </li>
