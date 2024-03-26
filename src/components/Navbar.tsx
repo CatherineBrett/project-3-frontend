@@ -57,11 +57,11 @@ function Navbar({ user, setUser }: NavbarProps) {
                     Advice
                   </Link>
                 </li>
-                <li>
+                {user && <li>
                   <Link to="/give-advice" className="hover:text-red-500">
                     Give Advice
                   </Link>
-                </li>
+                </li>}
               </ul>
             </div>
           </div>
