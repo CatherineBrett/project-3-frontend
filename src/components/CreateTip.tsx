@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,22 +12,22 @@ export default function CreateTip() {
     tip: "",
   });
 
-  const [adviceCharCount, setAdviceCharCount] = useState(0)
-  const [headingCharCount, setHeadingCharCount] = useState(0)
-
+  const [adviceCharCount, setAdviceCharCount] = useState(0);
+  const [headingCharCount, setHeadingCharCount] = useState(0);
+  
   function handleChange(e: any) {
     const fieldName = e.target.name;
     const newFormData = structuredClone(formData);
     newFormData[fieldName as keyof typeof formData] = e.target.value;
     setFormData(newFormData);
     if (e.target.id === "heading") {
-      setHeadingCharCount(e.target.value.length)
+      setHeadingCharCount(e.target.value.length);
     }
     if (e.target.id === "tip") {
-      setAdviceCharCount(e.target.value.length)
+      setAdviceCharCount(e.target.value.length);
     }
   }
-
+  
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -35,9 +35,19 @@ export default function CreateTip() {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(resp.data);
-    navigate("/advice"); 
+    navigate("/advice");
   }
-
+  
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto";
+      textAreaRef.current.style.height =
+      textAreaRef.current.scrollHeight + "px";
+    }
+  }, [formData.tip]);
+  
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-md rounded px-8 py-6 w-96">
@@ -135,12 +145,13 @@ export default function CreateTip() {
             </label>
             <div>
               <textarea
+                ref={textAreaRef}
                 name={"tip"}
                 id={"tip"}
                 maxLength={200}
                 onChange={handleChange}
                 value={formData.tip}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
+                className="hide-scrollbar resize-none mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
             </div>
           </div>
