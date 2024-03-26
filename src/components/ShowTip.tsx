@@ -3,16 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import Card from "../components/Tip";
 import { ITip } from "../interfaces/tip";
 import { ChevronLeft, ChevronRight } from "react-feather";
-import axios from "axios"
+import axios from "axios";
 import { IUser } from "../interfaces/user";
-
+import { Link } from "react-router-dom";
 
 export default function ShowTip({ user }: { user: null | IUser }) {
   const [tip, setTip] = useState<ITip | null>(null);
   const [carouselTips, setCarouselTips] = useState<ITip[]>([]);
   const [current, setCurrent] = useState(0);
   const { tipId } = useParams<{ tipId: string }>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchTip() {
@@ -41,13 +41,13 @@ export default function ShowTip({ user }: { user: null | IUser }) {
 
   async function deleteTip(e: SyntheticEvent) {
     try {
-      const token = localStorage.getItem('token')
-      await axios.delete('/api/tips/' + tipId, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      navigate('/advice')
+      const token = localStorage.getItem("token");
+      await axios.delete("/api/tips/" + tipId, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      navigate("/advice");
     } catch (e: any) {
-      console.log(e.response.data)
+      console.log(e.response.data);
     }
   }
 
@@ -79,7 +79,27 @@ export default function ShowTip({ user }: { user: null | IUser }) {
               <h2 className="text-lg font-semibold">About the User</h2>
               <p>{tip.user?.bio}</p>
             </div>
-          {tip && (user?._id === tip.user._id || user?._id === "66029050610777603484521b") && <div className="mt-4"><button onClick={deleteTip} className="bg-red-500 text-white px-10 py-2 rounded-full hover:bg-red-400 mt-12">Delete Tip</button></div>}
+            <div className="mt-4">          
+              {tip &&
+                (user?._id === tip.user._id ||
+                  user?.isAdmin) && (
+                  <div><button
+                    onClick={deleteTip}
+                    className="bg-red-500 text-white px-10 py-2 rounded-full hover:bg-red-400 text-sm"
+                  >
+                    Delete Tip
+                  </button></div>
+                )}
+              {tip &&
+                (user?._id === tip.user._id) && (
+                  <div className="mt-4"><Link
+                    to={"/advice/edit/" + tipId}
+                    className="bg-blue-500 text-white px-10 py-2 rounded-full hover:bg-red-400 text-sm"
+                  >
+                    Edit Tip
+                  </Link></div>
+                )}
+            </div>
           </div>
         </div>
       </section>
