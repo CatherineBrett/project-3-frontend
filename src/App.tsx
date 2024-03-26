@@ -9,6 +9,7 @@ import CreateTip from "./components/CreateTip";
 import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import ShowTip from "./components/ShowTip";
+import EditTip from "./components/EditTip";
 import "./styles/index.css";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/give-advice" element={<CreateTip />} />
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/advice/edit/:tipId" element={<EditTip />} />
           </Routes>
         </div>
         <Footer />
