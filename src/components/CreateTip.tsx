@@ -12,11 +12,20 @@ export default function CreateTip() {
     tip: "",
   });
 
+  const [adviceCharCount, setAdviceCharCount] = useState(0)
+  const [headingCharCount, setHeadingCharCount] = useState(0)
+
   function handleChange(e: any) {
     const fieldName = e.target.name;
     const newFormData = structuredClone(formData);
     newFormData[fieldName as keyof typeof formData] = e.target.value;
     setFormData(newFormData);
+    if (e.target.id === "heading") {
+      setHeadingCharCount(e.target.value.length)
+    }
+    if (e.target.id === "tip") {
+      setAdviceCharCount(e.target.value.length)
+    }
   }
 
   async function handleSubmit(e: SyntheticEvent) {
@@ -103,13 +112,14 @@ export default function CreateTip() {
               htmlFor="heading"
               className="block text-sm font-medium text-gray-700"
             >
-              Heading
+              {`Heading (${headingCharCount}/15)`}
             </label>
             <div>
               <input
                 type="text"
                 name={"heading"}
                 id={"heading"}
+                maxLength={15}
                 onChange={handleChange}
                 value={formData.heading}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -121,7 +131,7 @@ export default function CreateTip() {
               htmlFor="tip"
               className="block text-sm font-medium text-gray-700"
             >
-              Your Advice
+              {`Your Advice (${adviceCharCount}/200)`}
             </label>
             <div>
               <textarea

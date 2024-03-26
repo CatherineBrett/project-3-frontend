@@ -21,11 +21,16 @@ export default function Signup() {
         bio: ""
     })
 
+    const [bioCharCount, setBioCharCount] = useState(0)
+
     function handleChange(e: any) {
         const fieldName = e.target.name
         const newFormData = structuredClone(formData)
         newFormData[fieldName as keyof typeof formData] = e.target.value
         setFormData(newFormData)
+        if (e.target.id === "bio") {
+            setBioCharCount(e.target.value.length)
+        }
     }
 
     async function handleSubmit(e: SyntheticEvent) {
@@ -53,6 +58,7 @@ export default function Signup() {
 
                             type="text"
                             name={'username'}
+                            id={'username'}
                             onChange={handleChange}
                             value={formData.username}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -67,6 +73,7 @@ export default function Signup() {
 
                             type="text"
                             name={'email'}
+                            id={'email'}
                             onChange={handleChange}
                             value={formData.email}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -81,6 +88,7 @@ export default function Signup() {
 
                             type="password"
                             name={'password'}
+                            id={'password'}
                             onChange={handleChange}
                             value={formData.password}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -95,6 +103,7 @@ export default function Signup() {
 
                             type="password"
                             name={'passwordConfirmation'}
+                            id={'passwordConfirmation'}
                             onChange={handleChange}
                             value={formData.passwordConfirmation}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -103,11 +112,12 @@ export default function Signup() {
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Bio</label>
+                    <label htmlFor="bio" className="block text-sm font-medium text-gray-700">{`Bio (${bioCharCount}/500)`}</label>
                     <div>
                         <textarea
                             maxLength={500}
                             name={'bio'}
+                            id={'bio'}
                             onChange={handleChange}
                             value={formData.bio}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"

@@ -53,6 +53,7 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
                 <input
                   type="text"
                   name="email"
+                  id="email"
                   onChange={handleChange}
                   value={formData.email}
                   className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -70,6 +71,7 @@ export default function Login({ fetchUser }: { fetchUser: Function }) {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   onChange={handleChange}
                   value={formData.password}
                   className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
