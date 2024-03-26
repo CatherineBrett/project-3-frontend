@@ -1,12 +1,14 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { SyntheticEvent } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { ITip } from "../interfaces/tip";
 import { IUser } from "../interfaces/user";
 import Card from "./Tip";
+import axios from "axios"
 
-export default function ShowTip() {
+export default function ShowTip({ user }: { user: null | IUser }) {
   const [tip, setTip] = React.useState<ITip | null>(null);
   const { tipId } = useParams<{ tipId: string }>();
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     async function fetchTip() {
@@ -21,6 +23,18 @@ export default function ShowTip() {
     }
     fetchTip();
   }, [tipId]);
+
+  async function deleteTip(e: SyntheticEvent) {
+    try {
+      const token = localStorage.getItem('token')
+      await axios.delete('/api/tips/' + tipId, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      navigate('/advice')
+    } catch (e: any) {
+      console.log(e.response.data)
+    }
+  }
 
   if (!tip) {
     return (
@@ -42,6 +56,7 @@ export default function ShowTip() {
             <p>{tip.user?.bio}</p>
           </div>
         </div>
+        {tip && (user?._id === tip.user._id || user?._id === "66029050610777603484521b") && <button onClick={deleteTip} className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">Delete Tip</button>}
       </div>
     </section>
   );
