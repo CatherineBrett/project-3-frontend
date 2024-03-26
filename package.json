@@ -10,6 +10,7 @@
   "dependencies": {
     "@ionic/core": "^7.8.1",
     "@ionic/react": "^7.8.1",
+    "@material-tailwind/react": "^2.1.9",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "ionicons": "^7.3.0",
