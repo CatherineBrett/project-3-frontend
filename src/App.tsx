@@ -37,7 +37,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/advice" element={<TipsList />} />
-            <Route path="/advice/:tipId" element={<ShowTip />} />
+            <Route path="/advice/:tipId" element={<ShowTip user={user}/>} />
             <Route path="/give-advice" element={<CreateTip />} />
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
