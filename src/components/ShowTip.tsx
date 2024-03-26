@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { SyntheticEvent, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Card from "../components/Tip";
 import { ITip } from "../interfaces/tip";
 import { ChevronLeft, ChevronRight } from "react-feather";
+import axios from "axios"
+import { IUser } from "../interfaces/user";
 
-export default function ShowTip() {
+
+export default function ShowTip({ user }: { user: null | IUser }) {
   const [tip, setTip] = useState<ITip | null>(null);
   const [carouselTips, setCarouselTips] = useState<ITip[]>([]);
   const [current, setCurrent] = useState(0);
   const { tipId } = useParams<{ tipId: string }>();
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchTip() {
@@ -35,6 +39,18 @@ export default function ShowTip() {
     fetchTipsForCarousel();
   }, [tipId]);
 
+  async function deleteTip(e: SyntheticEvent) {
+    try {
+      const token = localStorage.getItem('token')
+      await axios.delete('/api/tips/' + tipId, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      navigate('/advice')
+    } catch (e: any) {
+      console.log(e.response.data)
+    }
+  }
+
   const goToPrevSlide = () => {
     setCurrent(current === 0 ? carouselTips.length - 1 : current - 1);
   };
@@ -58,11 +74,12 @@ export default function ShowTip() {
           <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-2">
             <Card key={tip._id} {...tip} />
           </div>
-          <div className="flex-initial w-full md:w-1/2 lg:w-1/3">
+          <div className="flex-initial w-full md:w-1/2 lg:w-1/3 flex flex-col items-center">
             <div className="bg-white p-4 rounded-lg shadow-md">
               <h2 className="text-lg font-semibold">About the User</h2>
               <p>{tip.user?.bio}</p>
             </div>
+          {tip && (user?._id === tip.user._id || user?._id === "66029050610777603484521b") && <div className="mt-4"><button onClick={deleteTip} className="bg-red-500 text-white px-10 py-2 rounded-full hover:bg-red-400 mt-12">Delete Tip</button></div>}
           </div>
         </div>
       </section>
