@@ -10,7 +10,7 @@ import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import ShowTip from "./components/ShowTip";
 import EditTip from "./components/EditTip";
-import UserProfile from "./components/UserProfile";
+import UserAccountInfo from "./components/UserAccountInfo";
 import "./styles/index.css";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/advice/edit/:tipId" element={<EditTip />} />
-            <Route path="/user/" element={<UserProfile />} />  
+            <Route path="/user/:userId" element={<UserAccountInfo />} />  
             {/*  we need to add in :userId */}
           </Routes>
         </div>

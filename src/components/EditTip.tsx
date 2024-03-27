@@ -99,8 +99,7 @@ async function handleSubmit(e: SyntheticEvent) {
                 disabled
                 type="text"
                 name={"name"}
-                id={"name"}
-                onChange={handleChange}
+                id={"name"}            
                 value={formData.name}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               />
