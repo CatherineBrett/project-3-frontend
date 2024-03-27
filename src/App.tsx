@@ -10,6 +10,7 @@ import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import ShowTip from "./components/ShowTip";
 import EditTip from "./components/EditTip";
+import UserProfile from "./components/UserProfile";
 import "./styles/index.css";
 
 function App() {
@@ -37,11 +38,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/advice" element={<TipsList />} />
-            <Route path="/advice/:tipId" element={<ShowTip user={user}/>} />
+            <Route path="/advice/:tipId" element={<ShowTip user={user} />} />
             <Route path="/give-advice" element={<CreateTip />} />
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/advice/edit/:tipId" element={<EditTip />} />
+            <Route path="/user/" element={<UserProfile />} />  
+            {/*  we need to add in :userId */}
           </Routes>
         </div>
         <Footer />
