@@ -12,14 +12,26 @@ export default function CreateTip() {
     tip: "",
   });
 
+  const [errorData, setErrorData] = useState({
+    name: "",
+    cohort: "",
+    emoji: "",
+    heading: "",
+    tip: "",
+    misc: "",
+  });
+
   const [adviceCharCount, setAdviceCharCount] = useState(0);
   const [headingCharCount, setHeadingCharCount] = useState(0);
-  
+
   function handleChange(e: any) {
     const fieldName = e.target.name;
     const newFormData = structuredClone(formData);
+    const newErrorData = structuredClone(errorData);
     newFormData[fieldName as keyof typeof formData] = e.target.value;
+    newErrorData[fieldName as keyof typeof errorData] = "";
     setFormData(newFormData);
+    setErrorData(newErrorData);
     if (e.target.id === "heading") {
       setHeadingCharCount(e.target.value.length);
     }
@@ -27,27 +39,33 @@ export default function CreateTip() {
       setAdviceCharCount(e.target.value.length);
     }
   }
-  
+
   async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-    const resp = await axios.post("/api/tips", formData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    console.log(resp.data);
-    navigate("/advice");
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const resp = await axios.post("/api/tips", formData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(resp.data);
+        navigate("/advice");
+      }
+    } catch (e: any) {
+      setErrorData(e.response.data.errors);
+    }
   }
-  
+
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   useEffect(() => {
     if (textAreaRef.current) {
       textAreaRef.current.style.height = "auto";
       textAreaRef.current.style.height =
-      textAreaRef.current.scrollHeight + "px";
+        textAreaRef.current.scrollHeight + "px";
     }
   }, [formData.tip]);
-  
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-md rounded px-8 py-6 w-96">
@@ -71,6 +89,9 @@ export default function CreateTip() {
                 value={formData.name}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               />
+              {errorData.name && (
+                <small className="text-red-500">{errorData.name}</small>
+              )}
             </div>
           </div>
           <div>
@@ -89,6 +110,9 @@ export default function CreateTip() {
                 value={formData.cohort}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               />
+              {errorData.cohort && (
+                <small className="text-red-500">{errorData.cohort}</small>
+              )}
             </div>
           </div>
           <div>
@@ -115,6 +139,9 @@ export default function CreateTip() {
                 <option value="comic-relief">Comic relief! 🤣</option>
                 <option value="misc">Miscellaneous 💡</option>
               </select>
+              {errorData.emoji && (
+                <small className="text-red-500">{errorData.emoji}</small>
+              )}
             </div>
           </div>
           <div>
@@ -134,6 +161,9 @@ export default function CreateTip() {
                 value={formData.heading}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               />
+              {errorData.heading && (
+                <small className="text-red-500">{errorData.heading}</small>
+              )}
             </div>
           </div>
           <div>
@@ -153,9 +183,15 @@ export default function CreateTip() {
                 value={formData.tip}
                 className="hide-scrollbar resize-none mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
+              {errorData.tip && (
+                <small className="text-red-500">{errorData.tip}</small>
+              )}
             </div>
           </div>
           <div className="flex justify-center">
+            {errorData.misc && (
+              <small className="text-red-500">{errorData.misc}</small>
+            )}
             <button className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-400 focus:outline-none focus:ring focus:border-red-300">
               Submit
             </button>
