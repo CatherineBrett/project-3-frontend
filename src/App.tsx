@@ -12,6 +12,7 @@ import ShowTip from "./components/ShowTip";
 import EditTip from "./components/EditTip";
 import UserAccountInfo from "./components/UserAccountInfo";
 import "./styles/index.css";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,7 +44,7 @@ function App() {
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/advice/edit/:tipId" element={<EditTip />} />
-            <Route path="/user/:userId" element={<UserAccountInfo />} />  
+            <Route path="/user/:userId" element={<UserProfile />} />  
             {/*  we need to add in :userId */}
           </Routes>
         </div>
