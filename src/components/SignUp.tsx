@@ -10,6 +10,8 @@ export default function Signup() {
     password: "",
     passwordConfirmation: "",
     bio: "",
+    gitHub: "",
+    linkedIn: "",
   });
 
   const [errorData, setErrorData] = useState({
@@ -42,11 +44,10 @@ export default function Signup() {
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.errors)
         setErrorData(error.response.data.errors);
-      console.log(error)
-
+      console.log(error);
     }
   }
-  console.log(errorData)
+  console.log(errorData);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -165,7 +166,45 @@ export default function Signup() {
                 value={formData.bio}
                 className="hide-scrollbar resize-none mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
-              {errorData.bio && <small className="text-red-500">{errorData.bio}</small>}
+              {errorData.bio && (
+                <small className="text-red-500">{errorData.bio}</small>
+              )}
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="gitHub"
+              className="block text-sm font-medium text-gray-700"
+            >
+              GitHub Link (optional):
+            </label>
+            <div>
+              <input
+                type="text"
+                name={"gitHub"}
+                id={"gitHub"}
+                onChange={handleChange}
+                value={formData.gitHub}
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="linkedIn"
+              className="block text-sm font-medium text-gray-700"
+            >
+              LinkedIn Link (optional):
+            </label>
+            <div>
+              <input
+                type="text"
+                name={"linkedIn"}
+                id={"linkedIn"}
+                onChange={handleChange}
+                value={formData.linkedIn}
+                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              />
             </div>
           </div>
           <div className="flex justify-center">

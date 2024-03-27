@@ -4,4 +4,6 @@ export interface IUser {
   email: string;
   bio: string;
   isAdmin?: boolean;
+  gitHub?: string;
+  linkedIn?: string;
 }
