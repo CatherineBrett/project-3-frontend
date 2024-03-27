@@ -70,7 +70,7 @@ function UserProfile() {
       >
         <div className="md:flex no-wrap md:-mx-2">
           {/* Left Side */}
-          <div className="w-full md:w-3/12 md:mx-2">
+          <div className="w-full mb-8 md:w-3/12 md:mx-2">
             {/* Profile Card */}
             <div className="bg-white p-3 border-t-4 border-red-400">
               <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">
@@ -86,49 +86,49 @@ function UserProfile() {
           </div>
 
           {/* Right Side */}
-          <div className="w-full md:w-9/12 mx-2 h-auto border-t-4 border-red-400">
+          <div className="w-full md:w-9/12 mb-2  h-auto border-t-4 border-red-400">
             <div className="bg-white p-3 shadow-sm rounded-sm">
               <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                 <span className="tracking-wide">About</span>
               </div>
               <div className="text-gray-700">
                 <div className="grid md:grid-cols-2 text-sm">
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-[auto]">
                     <div className="px-4 py-2 font-semibold">Username</div>
                     <div className="px-4 py-2">{formData.username}</div>
                   </div>
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-[auto]">
                     <div className="px-4 py-2 font-semibold">Email</div>
                     <div className="px-4 py-2">{formData.email}</div>
                   </div>
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-[auto]">
                     <div className="px-4 py-2 font-semibold">GitHub</div>
                     <input
                       type="text"
                       name="gitHub"
                       onChange={handleChange}
                       value={formData.gitHub || ""}
-                      className="px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                      className="px-4 py-2 border rounded-md mr-12 focus:outline-none focus:ring focus:border-blue-300"
                     />
                   </div>
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-[auto]">
                     <div className="px-4 py-2 font-semibold">LinkedIn</div>
                     <input
                       type="text"
                       name="linkedIn"
                       onChange={handleChange}
                       value={formData.linkedIn || ""}
-                      className="px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                      className="px-4 py-2 border rounded-md mr-12 focus:outline-none focus:ring focus:border-blue-300"
                     />
                   </div>
-                  <div className="grid grid-cols-2 md:col-span-1 mt-3">
+                  <div className="grid grid-cols-[auto] md:col-span-1 mt-3">
                     <div className="px-4 py-2 font-semibold">Bio</div>
                     <textarea
                       maxLength={500}
                       name="bio"
                       onChange={handleChange}
                       value={formData.bio}
-                      className="hide-scrollbar resize-none px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32 w-96"
+                      className="hide-scrollbar resize-none px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32 w-full"
                     ></textarea>
                   </div>
                   {errorMessage && (
