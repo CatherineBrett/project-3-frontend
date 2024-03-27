@@ -104,7 +104,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
           </div>
         </div>
       </section>
-      <section className="container mx-auto mt-36 ">
+      <section className="container mx-auto mt-36 mb-24 ">
         <h2 className="text-2xl font-semibold text-center mb-6">
           Explore More Tips
         </h2>

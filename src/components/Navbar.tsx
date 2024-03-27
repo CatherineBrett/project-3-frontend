@@ -49,18 +49,27 @@ function Navbar({ user, setUser }: NavbarProps) {
             >
               <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
                 <li>
-                  <Link to="/" className="hover:text-red-500">
+                  <Link
+                    to="/"
+                    className="hover:text-red-500 text-xs lg:text-base"
+                  >
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/advice" className="hover:text-red-500">
+                  <Link
+                    to="/advice"
+                    className="hover:text-red-500 text-xs lg:text-base"
+                  >
                     Advice
                   </Link>
                 </li>
                 {user && (
                   <li>
-                    <Link to="/give-advice" className="hover:text-red-500">
+                    <Link
+                      to="/give-advice"
+                      className="hover:text-red-500 text-xs lg:text-base"
+                    >
                       Give Advice
                     </Link>
                   </li>
@@ -80,7 +89,7 @@ function Navbar({ user, setUser }: NavbarProps) {
                 </span>
                 <button
                   onClick={logout}
-                  className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400"
+                  className="bg-red-500 text-white text-xs lg:text-base px-5 py-2 rounded-full hover:bg-red-400"
                 >
                   Log Out
                 </button>
