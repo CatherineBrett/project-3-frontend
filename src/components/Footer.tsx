@@ -1,4 +1,11 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faLinkedin,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 function Footer() {
   return (
@@ -20,10 +27,10 @@ function Footer() {
             </Link>
           </div>
           <div className="grid grid-cols-4 gap-4">
-            <ion-icon name="logo-facebook" size="large"></ion-icon>
-            <ion-icon name="logo-linkedin" size="large"></ion-icon>
-            <ion-icon name="logo-instagram" size="large"></ion-icon>
-            <ion-icon name="logo-twitter" size="large"></ion-icon>
+            <FontAwesomeIcon icon={faFacebook} style={{ fontSize: "24px" }} />
+            <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "24px" }} />
+            <FontAwesomeIcon icon={faInstagram} style={{ fontSize: "24px" }} />
+            <FontAwesomeIcon icon={faXTwitter} style={{ fontSize: "24px" }} />
           </div>
         </div>
       </div>
