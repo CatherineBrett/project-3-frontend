@@ -39,11 +39,14 @@ export default function Signup() {
       console.log(resp.data);
 
       navigate("/login");
-    } catch (e: any) {
-      setErrorData(e.response.data.errors);
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.errors)
+        setErrorData(error.response.data.errors);
+      console.log(error)
+
     }
   }
-
+  console.log(errorData)
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -162,7 +165,7 @@ export default function Signup() {
                 value={formData.bio}
                 className="hide-scrollbar resize-none mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
-              {errorData.bio && <small>{errorData.bio}</small>}
+              {errorData.bio && <small className="text-red-500">{errorData.bio}</small>}
             </div>
           </div>
           <div className="flex justify-center">
