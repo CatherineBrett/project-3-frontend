@@ -21,31 +21,31 @@ export default function Signup() {
   });
 
   const [bioCharCount, setBioCharCount] = useState(0);
-  
+
   function handleChange(e: any) {
-      const fieldName = e.target.name;
-      const newFormData = structuredClone(formData);
-      newFormData[fieldName as keyof typeof formData] = e.target.value;
-      setFormData(newFormData);
-      if (e.target.id === "bio") {
-          setBioCharCount(e.target.value.length);
-        }
+    const fieldName = e.target.name;
+    const newFormData = structuredClone(formData);
+    newFormData[fieldName as keyof typeof formData] = e.target.value;
+    setFormData(newFormData);
+    if (e.target.id === "bio") {
+      setBioCharCount(e.target.value.length);
     }
-    
-    async function handleSubmit(e: SyntheticEvent) {
-        try {
-            e.preventDefault();
-            const resp = await axios.post("/api/signup", formData);
-            console.log(resp.data);
-            
-            navigate("/login");
-        } catch (e: any) {
-            setErrorData(e.response.data.errors);
-        }
+  }
+
+  async function handleSubmit(e: SyntheticEvent) {
+    try {
+      e.preventDefault();
+      const resp = await axios.post("/api/signup", formData);
+      console.log(resp.data);
+
+      navigate("/login");
+    } catch (e: any) {
+      setErrorData(e.response.data.errors);
     }
-    
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    
+  }
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     if (textAreaRef.current) {
       textAreaRef.current.style.height = "auto";

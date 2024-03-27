@@ -70,40 +70,41 @@ export default function ShowTip({ user }: { user: null | IUser }) {
   return (
     <>
       <section className="container mx-auto pt-24 flex justify-center gap-8">
-        <div className="flex flex-wrap justify-center lg:flex-nowrap gap-8">
+        <div className="flex flex-wrap justify-center lg:flex-nowrap gap-24">
           <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 py-2">
             <Card key={tip._id} {...tip} />
+            <div className="flex justify-center mt-4">
+              {tip && user?._id === tip.user._id && (
+                <Link to={"/advice/edit/" + tipId} className="mr-4">
+                  <button className="bg-blue-500 text-white px-10 py-2 rounded-full hover:bg-blue-400 text-sm">
+                    Edit Tip
+                  </button>
+                </Link>
+              )}
+              {tip && (user?._id === tip.user._id || user?.isAdmin) && (
+                <button
+                  onClick={deleteTip}
+                  className="bg-red-500 text-white px-10 py-2 rounded-full hover:bg-red-400 text-sm"
+                >
+                  Delete Tip
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex-initial w-full md:w-1/2 lg:w-1/3 flex flex-col items-center">
             <div className="bg-white p-4 rounded-lg shadow-md">
-              <h2 className="text-lg font-semibold">About the User</h2>
+              <h2 className="text-lg font-semibold">
+                {tip.user?.username
+                  ? `More from ${tip.user.username}:`
+                  : "User information not available"}
+              </h2>
               <p>{tip.user?.bio}</p>
             </div>
-            <div className="mt-4">          
-              {tip &&
-                (user?._id === tip.user._id ||
-                  user?.isAdmin) && (
-                  <div><button
-                    onClick={deleteTip}
-                    className="bg-red-500 text-white px-10 py-2 rounded-full hover:bg-red-400 text-sm"
-                  >
-                    Delete Tip
-                  </button></div>
-                )}
-              {tip &&
-                (user?._id === tip.user._id) && (
-                  <div className="mt-4"><Link
-                    to={"/advice/edit/" + tipId}
-                    className="bg-blue-500 text-white px-10 py-2 rounded-full hover:bg-red-400 text-sm"
-                  >
-                    Edit Tip
-                  </Link></div>
-                )}
-            </div>
+            <div className="flex p-8"></div>
           </div>
         </div>
       </section>
-      <section className="mt-8 container mx-auto">
+      <section className="container mx-auto mt-36 ">
         <h2 className="text-2xl font-semibold text-center mb-6">
           Explore More Tips
         </h2>

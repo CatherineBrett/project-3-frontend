@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { closeOutline, menuOutline } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { IUser } from "../interfaces/user"
+import { IUser } from "../interfaces/user";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface NavbarProps {
-  user: null | IUser
-  setUser: Function
+  user: null | IUser;
+  setUser: Function;
 }
 
 declare global {
@@ -19,13 +20,12 @@ declare global {
 
 function Navbar({ user, setUser }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function logout() {
-    localStorage.removeItem('token')
-    setUser(null)
-    navigate('/')
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/");
   }
 
   const toggleMenu = () => {
@@ -40,11 +40,12 @@ function Navbar({ user, setUser }: NavbarProps) {
             <img
               className="w-16 mt-2 mr-4"
               src="../src/assets/bbtransparentbg.png"
-              alt="BB Logo"
+              alt="Bootcamp Buddy Logo"
             />
             <div
-              className={`${isMenuOpen ? "block" : "hidden"
-                } md:block transition duration-300 ease-in-out`}
+              className={`${
+                isMenuOpen ? "block" : "hidden"
+              } md:block transition duration-300 ease-in-out`}
             >
               <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8 text-lg font-medium">
                 <li>
@@ -57,25 +58,42 @@ function Navbar({ user, setUser }: NavbarProps) {
                     Advice
                   </Link>
                 </li>
-                {user && <li>
-                  <Link to="/give-advice" className="hover:text-red-500">
-                    Give Advice
-                  </Link>
-                </li>}
+                {user && (
+                  <li>
+                    <Link to="/give-advice" className="hover:text-red-500">
+                      Give Advice
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
-          <div className="flex items-center gap-6">
-            {!user && <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
-              <Link to="/login">Login</Link>
-            </button>}
-            {user && <button onClick={logout} className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
-              Log Out
-            </button>}
-            <IonIcon
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <FontAwesomeIcon
+                  icon={faUserCircle}
+                  className="text-2xl text-gray-700"
+                />
+                <span className="text-gray-800 font-bold pr-4 text-xs lg:text-base">
+                  {user.username}
+                </span>
+                <button
+                  onClick={logout}
+                  className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <button className="bg-red-500 text-white px-5 py-2 rounded-full hover:bg-red-400">
+                <Link to="/login">Login</Link>
+              </button>
+            )}
+            <FontAwesomeIcon
               onClick={toggleMenu}
-              icon={isMenuOpen ? closeOutline : menuOutline}
-              className="text-3xl cursor-pointer md:hidden"
+              icon={isMenuOpen ? faTimes : faBars}
+              className="text-2xl cursor-pointer md:hidden"
             />
           </div>
         </nav>

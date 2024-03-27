@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState, useEffect } from "react";
+import { SyntheticEvent, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ITip } from "../interfaces/tip";
@@ -16,6 +16,7 @@ export default function EditTip() {
 
   const [adviceCharCount, setAdviceCharCount] = useState(0);
   const [headingCharCount, setHeadingCharCount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function fetchTip() {
@@ -29,8 +30,8 @@ export default function EditTip() {
         tip: tipData.tip,
       };
       setFormData(tipToEdit);
-      setAdviceCharCount(tipData.tip.length)
-      setHeadingCharCount(tipData.heading.length)
+      setAdviceCharCount(tipData.tip.length);
+      setHeadingCharCount(tipData.heading.length);
     }
     fetchTip();
   }, []);
@@ -48,15 +49,33 @@ export default function EditTip() {
     }
   }
 
-  async function handleSubmit(e: SyntheticEvent) {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
+async function handleSubmit(e: SyntheticEvent) {
+  e.preventDefault();
+  const token = localStorage.getItem("token");
+  try {
     const resp = await axios.put(`/api/tips/${tipId}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(resp.data);
     navigate("/advice");
+  } catch (e: any) {
+    if (e.response && e.response.data) {
+      setErrorMessage(e.response.data);
+    } else {
+      setErrorMessage("An error occurred. Please try again later.");
+    }
   }
+}
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto";
+      textAreaRef.current.style.height =
+        textAreaRef.current.scrollHeight + "px";
+    }
+  }, [formData.tip]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
@@ -64,6 +83,9 @@ export default function EditTip() {
         <h2 className="text-xl font-bold mb-4 text-center text-red-500">
           Edit Advice
         </h2>
+        {errorMessage && (
+          <div className="text-red-500 text-center font-bold mb-4">{errorMessage}</div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
@@ -74,6 +96,7 @@ export default function EditTip() {
             </label>
             <div className="control">
               <input
+                disabled
                 type="text"
                 name={"name"}
                 id={"name"}
@@ -92,6 +115,7 @@ export default function EditTip() {
             </label>
             <div>
               <input
+                disabled
                 type="text"
                 name={"cohort"}
                 id={"cohort"}
@@ -155,12 +179,13 @@ export default function EditTip() {
             </label>
             <div>
               <textarea
+                ref={textAreaRef}
                 name={"tip"}
                 id={"tip"}
                 maxLength={200}
                 onChange={handleChange}
                 value={formData.tip}
-                className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
+                className="hide-scrollbar resize-none mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300 h-32"
               />
             </div>
           </div>
@@ -173,6 +198,4 @@ export default function EditTip() {
       </div>
     </div>
   );
-
-  return <div></div>;
 }
