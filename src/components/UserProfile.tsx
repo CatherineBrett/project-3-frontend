@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { SyntheticEvent, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-function UserProfile() {
+export default function UserProfile() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -12,8 +12,10 @@ function UserProfile() {
     gitHub: "",
     linkedIn: "",
   });
+
   const [bioCharCount, setBioCharCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     async function fetchUser() {
@@ -23,13 +25,14 @@ function UserProfile() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const userData = resp.data;
-        setFormData({
+        const userToEdit = {
           email: userData.email,
           username: userData.username,
           bio: userData.bio,
           gitHub: userData.gitHub,
           linkedIn: userData.linkedIn,
-        });
+        };
+        setFormData(userToEdit);
         setBioCharCount(userData.bio.length);
       }
     }
@@ -37,28 +40,30 @@ function UserProfile() {
   }, []);
 
   function handleChange(e: any) {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    if (name === "bio") {
-      setBioCharCount(value.length);
+    const fieldName = e.target.name;
+    const newFormData = structuredClone(formData);
+    newFormData[fieldName as keyof typeof formData] = e.target.value;
+    setFormData(newFormData);
+    if (e.target.id === "bio") {
+      setBioCharCount(e.target.value.length);
     }
   }
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: SyntheticEvent) {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      await axios.put(`/api/user/${userId}`, formData, {
+      const resp = await axios.put(`/api/user/${userId}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      navigate("/advice");
-    } catch (error: any) {
-      const message =
-        error.response?.data || "An error occurred. Please try again later.";
-      setErrorMessage(message);
+      console.log(resp.data);
+      setSuccessMessage("Settings updated successfully!");
+    } catch (e: any) {
+      if (e.response && e.response.data) {
+        setErrorMessage(e.response.data);
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
     }
   }
 
@@ -88,6 +93,14 @@ function UserProfile() {
           {/* Right Side */}
           <div className="w-full md:w-9/12 mb-2  h-auto border-t-4 border-red-400">
             <div className="bg-white p-3 shadow-sm rounded-sm">
+              {successMessage && (
+                <div
+                  className="p-4 text-center mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                  role="alert"
+                >
+                  <span className="font-medium">{successMessage}</span>
+                </div>
+              )}
               <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                 <span className="tracking-wide">About</span>
               </div>
@@ -153,5 +166,3 @@ function UserProfile() {
     </section>
   );
 }
-
-export default UserProfile;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IUser } from "../interfaces/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 interface NavbarProps {
   user: null | IUser;
@@ -20,6 +21,7 @@ declare global {
 
 function Navbar({ user, setUser }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   function logout() {
@@ -30,6 +32,11 @@ function Navbar({ user, setUser }: NavbarProps) {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleDropdown = (event: any) => {
+    event.preventDefault();
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -77,19 +84,48 @@ function Navbar({ user, setUser }: NavbarProps) {
               </ul>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative">
+            {" "}
             {user ? (
               <>
+                <div
+                  onClick={toggleDropdown}
+                  className="cursor-pointer flex items-center"
+                >
+                  {" "}
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    className="text-2xl text-gray-700 mr-2"
+                  />
+                  <span className="text-gray-800 font-bold text-xs lg:text-base">
+                    {user.username}
+                  </span>
+                </div>
                 <FontAwesomeIcon
-                  icon={faUserCircle}
-                  className="text-2xl text-gray-700"
+                  icon={faCaretDown}
+                  className="text-xs lg:text-sm"
                 />
-                <span className="text-gray-800 font-bold pr-4 text-xs lg:text-base">
-                  {user.username}
-                </span>
+                {isDropdownOpen && (
+                  <div
+                    id="dropdownNavbar"
+                    className="absolute top-full mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20"
+                  >
+                    <ul className="text-sm text-gray-700 dark:text-gray-200">
+                      <li>
+                        <Link
+                          to={`/user/${user._id}`}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Settings
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+
                 <button
                   onClick={logout}
-                  className="bg-red-500 text-white text-xs lg:text-base px-5 py-2 rounded-full hover:bg-red-400"
+                  className="bg-red-500 text-white text-xs lg:text-base px-5 py-2 rounded-full hover:bg-red-400 ml-4" 
                 >
                   Log Out
                 </button>
@@ -111,4 +147,4 @@ function Navbar({ user, setUser }: NavbarProps) {
   );
 }
 
-export default Navbar;
+export default Navbar
