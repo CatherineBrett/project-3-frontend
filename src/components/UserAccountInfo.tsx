@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { baseUrl } from "../config";
 
 export default function EditUser() {
   const { userId } = useParams();
@@ -20,7 +21,7 @@ export default function EditUser() {
     async function fetchUser() {
       const token = localStorage.getItem("token");
       if (token) {
-        const resp = await axios.get("/api/user", {
+        const resp = await axios.get(`${baseUrl}/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const userData = resp.data;
@@ -52,7 +53,7 @@ export default function EditUser() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const resp = await axios.put(`/api/user/${userId}`, formData, {
+      const resp = await axios.put(`${baseUrl}/user/${userId}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(resp.data);

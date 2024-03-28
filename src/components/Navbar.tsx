@@ -125,7 +125,7 @@ function Navbar({ user, setUser }: NavbarProps) {
 
                 <button
                   onClick={logout}
-                  className="bg-red-500 text-white text-xs lg:text-base px-5 py-2 rounded-full hover:bg-red-400 ml-4" 
+                  className="bg-red-500 text-white text-xs lg:text-base px-5 py-2 rounded-full hover:bg-red-400 ml-4"
                 >
                   Log Out
                 </button>
@@ -147,4 +147,4 @@ function Navbar({ user, setUser }: NavbarProps) {
   );
 }
 
-export default Navbar
+export default Navbar;

@@ -2,6 +2,7 @@ import { SyntheticEvent, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ITip } from "../interfaces/tip";
+import { baseUrl } from "../config";
 
 export default function EditTip() {
   const { tipId } = useParams();
@@ -20,7 +21,7 @@ export default function EditTip() {
 
   useEffect(() => {
     async function fetchTip() {
-      const resp = await fetch(`/api/tips/${tipId}`);
+      const resp = await fetch(`${baseUrl}/tips/${tipId}`);
       const tipData = await resp.json();
       const tipToEdit = {
         name: tipData.name,
@@ -49,23 +50,23 @@ export default function EditTip() {
     }
   }
 
-async function handleSubmit(e: SyntheticEvent) {
-  e.preventDefault();
-  const token = localStorage.getItem("token");
-  try {
-    const resp = await axios.put(`/api/tips/${tipId}`, formData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    console.log(resp.data);
-    navigate("/advice");
-  } catch (e: any) {
-    if (e.response && e.response.data) {
-      setErrorMessage(e.response.data);
-    } else {
-      setErrorMessage("An error occurred. Please try again later.");
+  async function handleSubmit(e: SyntheticEvent) {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    try {
+      const resp = await axios.put(`${baseUrl}/tips/${tipId}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(resp.data);
+      navigate("/advice");
+    } catch (e: any) {
+      if (e.response && e.response.data) {
+        setErrorMessage(e.response.data);
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
     }
   }
-}
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -84,7 +85,9 @@ async function handleSubmit(e: SyntheticEvent) {
           Edit Advice
         </h2>
         {errorMessage && (
-          <div className="text-red-500 text-center font-bold mb-4">{errorMessage}</div>
+          <div className="text-red-500 text-center font-bold mb-4">
+            {errorMessage}
+          </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -99,7 +102,7 @@ async function handleSubmit(e: SyntheticEvent) {
                 disabled
                 type="text"
                 name={"name"}
-                id={"name"}            
+                id={"name"}
                 value={formData.name}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               />

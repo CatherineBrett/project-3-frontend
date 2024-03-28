@@ -3,6 +3,7 @@ import Card from "../components/Tip";
 import { ITip } from "../interfaces/tip";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../config";
 
 export default function Home() {
   const [tips, setTips] = useState<ITip[]>([]);
@@ -11,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchTips() {
       try {
-        const response = await fetch("/api/tips");
+        const response = await fetch(`${baseUrl}/tips`);
         const data: ITip[] = await response.json();
         setTips(data.sort(() => 0.5 - Math.random()).slice(0, 4));
       } catch (error) {
@@ -35,7 +36,7 @@ export default function Home() {
     {
       title: "Share and Empower",
       description:
-        "Log in to unlock the power of sharing. Your insights can be the beacon for someone elses journey!",
+        "Log in to unlock the power of sharing. Your insights can be the beacon for someone else's journey!",
     },
     {
       title: "Craft Your Advice",
@@ -143,8 +144,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      
     </>
   );
 }

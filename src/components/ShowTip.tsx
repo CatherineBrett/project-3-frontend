@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "react-feather";
 import axios from "axios";
 import { IUser } from "../interfaces/user";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../config";
 
 export default function ShowTip({ user }: { user: null | IUser }) {
   const [tip, setTip] = useState<ITip | null>(null);
@@ -17,7 +18,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
   useEffect(() => {
     async function fetchTip() {
       try {
-        const response = await fetch(`/api/tips/${tipId}`);
+        const response = await fetch(`${baseUrl}/tips/${tipId}`);
         const data: ITip = await response.json();
         setTip(data);
       } catch (error) {
@@ -27,7 +28,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
 
     async function fetchTipsForCarousel() {
       try {
-        const response = await fetch("/api/tips");
+        const response = await fetch(`${baseUrl}/tips`);
         const data: ITip[] = await response.json();
         setCarouselTips(data.sort(() => 0.5 - Math.random()).slice(0, 4));
       } catch (error) {
@@ -42,7 +43,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
   async function deleteTip(e: SyntheticEvent) {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete("/api/tips/" + tipId, {
+      await axios.delete(`${baseUrl}/tips/` + tipId, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/advice");
@@ -66,8 +67,8 @@ export default function ShowTip({ user }: { user: null | IUser }) {
       </div>
     );
   }
-  console.log("below me should be a github")
-  console.log(tip.user)
+  console.log("below me should be a github");
+  console.log(tip.user);
   return (
     <>
       <section className="container mx-auto pt-24 flex justify-center gap-8">
@@ -112,9 +113,12 @@ export default function ShowTip({ user }: { user: null | IUser }) {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   className="h-6 w-6"
-                ><path
-                  fill="currentColor"
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.263.82-.58 0-.287-.012-1.05-.015-2.06-3.338.724-4.042-1.547-4.042-1.547-.546-1.387-1.333-1.755-1.333-1.755-1.088-.74.082-.724.082-.724 1.205.085 1.838 1.238 1.838 1.238 1.07 1.833 2.808 1.303 3.494.996.108-.78.418-1.303.76-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.312.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.908 1.23 3.22 0 4.61-2.805 5.623-5.475 5.92.42.368.81 1.102.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .318.215.7.825.58C20.565 21.792 24 17.3 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.263.82-.58 0-.287-.012-1.05-.015-2.06-3.338.724-4.042-1.547-4.042-1.547-.546-1.387-1.333-1.755-1.333-1.755-1.088-.74.082-.724.082-.724 1.205.085 1.838 1.238 1.838 1.238 1.07 1.833 2.808 1.303 3.494.996.108-.78.418-1.303.76-1.605-2.665-.303-5.466-1.332-5.466-5.93 0-1.312.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.908 1.23 3.22 0 4.61-2.805 5.623-5.475 5.92.42.368.81 1.102.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .318.215.7.825.58C20.565 21.792 24 17.3 24 12c0-6.63-5.37-12-12-12z"
+                  ></path>
+                </svg>
                 GitHub
               </a>
               <a
@@ -122,7 +126,8 @@ export default function ShowTip({ user }: { user: null | IUser }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center ml-4"
-              >Linked
+              >
+                Linked
                 <img
                   src="../src/assets/linkedIn.jpg"
                   alt="LinkedIn"
@@ -173,8 +178,9 @@ export default function ShowTip({ user }: { user: null | IUser }) {
               <div
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`cursor-pointer transition-all w-3 h-3 bg-white bg-opacity-10 rounded-full ${current === i ? "p-2 bg-blue-500" : "bg-opacity-20"
-                  }`}
+                className={`cursor-pointer transition-all w-3 h-3 bg-white bg-opacity-10 rounded-full ${
+                  current === i ? "p-2 bg-blue-500" : "bg-opacity-20"
+                }`}
               />
             ))}
           </div>

@@ -2,17 +2,18 @@ import React from "react";
 import { ITip } from "../interfaces/tip";
 import Card from "./Tip";
 import { react } from "@babel/types";
+import { baseUrl } from "../config";
 
 type Tips = null | Array<ITip>;
 
 function TipsList() {
   const [tips, setTips] = React.useState<Tips>(null);
-  const [search, setSearch] = React.useState('')
-  console.log(search)
+  const [search, setSearch] = React.useState("");
+  console.log(search);
 
   React.useEffect(() => {
     async function fetchTips() {
-      const resp = await fetch("/api/tips");
+      const resp = await fetch(`${baseUrl}/tips`);
       const data = await resp.json();
       setTips(data);
     }
@@ -22,25 +23,28 @@ function TipsList() {
   console.log("Here are all the tips we have fetched:");
   console.log(tips);
 
-
   function handleChange(e: any) {
-    setSearch(e.currentTarget.value)
+    setSearch(e.currentTarget.value);
   }
 
   function filterResults() {
-    return tips?.filter(searchResult => {
-      return searchResult.name.toLowerCase().includes(search.toLowerCase()) ||
+    return tips?.filter((searchResult) => {
+      return (
+        searchResult.name.toLowerCase().includes(search.toLowerCase()) ||
         searchResult.cohort.toLowerCase().includes(search.toLowerCase()) ||
         searchResult.emoji.toLowerCase().includes(search.toLowerCase()) ||
         searchResult.heading.toLowerCase().includes(search.toLowerCase()) ||
         searchResult.tip.toLowerCase().includes(search.toLowerCase())
-    })
+      );
+    });
   }
 
   if (!tips) {
-    return <div className="flex justify-center items-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-    </div>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
   }
 
   // TODO: Add Tailwind/CSS to this
@@ -59,7 +63,9 @@ function TipsList() {
       </div>
       <div className="">
         {filterResults()?.length === 0 ? (
-          <div className="text-center mt-4 text-gray-500">No results match your search</div>
+          <div className="text-center mt-4 text-gray-500">
+            No results match your search
+          </div>
         ) : (
           <div className="flex flex-wrap -mx-2 p-4">
             {filterResults()?.map((tip) => {
