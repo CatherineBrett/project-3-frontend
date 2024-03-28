@@ -66,7 +66,8 @@ export default function ShowTip({ user }: { user: null | IUser }) {
       </div>
     );
   }
-
+  console.log("below me should be a github")
+  console.log(tip.user)
   return (
     <>
       <section className="container mx-auto pt-24 flex justify-center gap-8">
@@ -102,7 +103,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
             </div>
             <div className="flex p-8">
               <a
-                href={`https://github.com/${tip.user.gitHub}`}
+                href={tip.user?.gitHub}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center mr-4"
@@ -117,7 +118,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
                 GitHub
               </a>
               <a
-                href={`https://www.linkedin.com/${tip.user?.linkedIn}`}
+                href={tip.user?.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center ml-4"
