@@ -7,6 +7,7 @@ import axios from "axios";
 import { IUser } from "../interfaces/user";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../config";
+import linkedIn from "../src/assets/linkedIn.jpg"
 
 export default function ShowTip({ user }: { user: null | IUser }) {
   const [tip, setTip] = useState<ITip | null>(null);
@@ -129,7 +130,7 @@ export default function ShowTip({ user }: { user: null | IUser }) {
               >
                 Linked
                 <img
-                  src="../src/assets/linkedIn.jpg"
+                  src={linkedIn}
                   alt="LinkedIn"
                   className="h-6 w-6"
                 />

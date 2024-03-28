@@ -5,6 +5,7 @@ import { IUser } from "../interfaces/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import bbtransparentbg from "../src/assets/bbtransparentbg.png" 
 
 interface NavbarProps {
   user: null | IUser;
@@ -46,7 +47,7 @@ function Navbar({ user, setUser }: NavbarProps) {
           <div className="flex items-center">
             <img
               className="w-16 mt-2 mr-4"
-              src="../src/assets/bbtransparentbg.png"
+              src={bbtransparentbg}
               alt="Bootcamp Buddy Logo"
             />
             <div
