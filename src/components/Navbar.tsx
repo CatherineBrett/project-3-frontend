@@ -5,7 +5,7 @@ import { IUser } from "../interfaces/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import bbtransparentbg from "../src/assets/bbtransparentbg.png" 
+import bbtransparentbg from "../assets/bbtransparentbg.png" 
 
 interface NavbarProps {
   user: null | IUser;
