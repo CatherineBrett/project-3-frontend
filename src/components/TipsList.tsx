@@ -13,7 +13,7 @@ function TipsList() {
 
   React.useEffect(() => {
     async function fetchTips() {
-      const resp = await fetch(`${baseUrl}/tips`);
+      const resp = await fetch(`${import.meta.env.VITE_API_URL}/api/tips`);
       const data = await resp.json();
       setTips(data);
     }
