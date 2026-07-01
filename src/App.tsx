@@ -10,9 +10,9 @@ import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import ShowTip from "./components/ShowTip";
 import EditTip from "./components/EditTip";
-import UserAccountInfo from "./components/UserAccountInfo";
 import "./styles/index.css";
 import UserProfile from "./components/UserProfile";
+import { baseUrl } from "./config";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,7 +20,7 @@ function App() {
   async function fetchUser() {
     const token = localStorage.getItem("token");
     if (token) {
-      const resp = await axios.get("/api/user", {
+      const resp = await axios.get(`${baseUrl}/user`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(resp.data);
@@ -44,7 +44,7 @@ function App() {
             <Route path="/login" element={<Login fetchUser={fetchUser} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/advice/edit/:tipId" element={<EditTip />} />
-            <Route path="/user/:userId" element={<UserProfile />} />  
+            <Route path="/user/:userId" element={<UserProfile />} />
             {/*  we need to add in :userId */}
           </Routes>
         </div>

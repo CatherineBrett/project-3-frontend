@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../config";
 
 export default function CreateTip() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function CreateTip() {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const resp = await axios.post("/api/tips", formData, {
+        const resp = await axios.post(`${baseUrl}/tips`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(resp.data);
